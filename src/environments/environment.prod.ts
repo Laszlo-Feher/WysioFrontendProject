@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  jokeURL: "https://api.chucknorris.io/jokes/random"
 };
