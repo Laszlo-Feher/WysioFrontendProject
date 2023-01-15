@@ -1,0 +1,17 @@
+<div>
+    <h3>Whats the weather today?</h3>
+    <img class="weather-img" src="{{weatherImageURL}}" alt="">
+    <p>Temperature: {{ weather?.main?.temp }}</p>
+    <p>Feels like: {{ weather?.main?.feels_like  }}</p>
+    <p>Humidity: {{ weather?.main?.humidity }}</p>
+    <p>City: {{ weather?.name }}</p>
+    <p>Type: {{ weatherType }}</p>
+    <form [formGroup] = "todoForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Task Name</mat-label>
+            <input formControlName="city" matInput>
+        </mat-form-field>
+        <button (click)="currentPosition()" mat-raised-button [disabled]="todoForm.invalid" color="primary">Current Location</button>
+        <button (click)="newPosition()" mat-raised-button [disabled]="todoForm.invalid" color="primary">New Positon</button>
+    </form>
+</div>
