@@ -11,7 +11,11 @@
             <mat-label>Task Name</mat-label>
             <input formControlName="city" matInput>
         </mat-form-field>
-        <button (click)="currentPosition()" mat-raised-button [disabled]="todoForm.invalid" color="primary">Current Location</button>
-        <button (click)="newPosition()" mat-raised-button [disabled]="todoForm.invalid" color="primary">New Positon</button>
+        <div>
+            <button (click)="newPosition()" mat-raised-button [disabled]="todoForm.invalid" color="primary">New Positon</button>
+        </div>
     </form>
+    <div>
+        <button (click)="currentPosition()" mat-raised-button color="primary">Current Location</button>
+    </div>
 </div>
