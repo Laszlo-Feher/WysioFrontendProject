@@ -15,13 +15,13 @@ export class WeatherComponent implements OnInit {
   weather: IWeather;
   weatherImageURL: string;
   weatherType: string;
-  todoForm !: FormGroup;
+  newLocationForm !: FormGroup;
 
   constructor(private weatherService:WeatherService, private _snackBar: MatSnackBar, private form : FormBuilder) { }
 
   ngOnInit(): void {
     this.setLocationByGeolocation();
-    this.todoForm = this.form.group({
+    this.newLocationForm = this.form.group({
       city : ['', Validators.required]
     });
   }
@@ -31,7 +31,7 @@ export class WeatherComponent implements OnInit {
   }
 
   newPosition(){
-    this.setWeatherByCity(this.todoForm.value.city);
+    this.setWeatherByCity(this.newLocationForm.value.city);
   }
 
   currentPosition() {
@@ -39,10 +39,10 @@ export class WeatherComponent implements OnInit {
   }
 
   private setWeatherByCity(city: string) : void {
-    this.weatherService.getWeatherAPIByCity(city)
+    this.weatherService.getWeatherByCity(city)
     .subscribe(data => {
       this.weather = data;
-      this.weatherImageURL = this.weatherService.getWeatherImage(this.weather.weather[0].icon);
+      this.weatherImageURL = this.weatherService.getWeatherImageURLByIconCode(this.weather.weather[0].icon);
       this.weatherType = this.weather.weather[0].main;
     });
   }
@@ -50,16 +50,16 @@ export class WeatherComponent implements OnInit {
   private setLocationByGeolocation():Promise<any> {
     return new Promise((resolve, reject)=>{
       this.weatherService.getLocation().then(resp=>{
-        resolve(resp.allowed == true ? this.setWeatherByGeolocation(resp.lat, resp.lon) : this.openSnackBar(resp.message))
+        resolve(resp.allowed ? this.setWeatherByGeolocation(resp.lat, resp.lon) : this.openSnackBar(resp.message))
       })
     })
   }
 
   private setWeatherByGeolocation(lat: number, lon: number) : void {
-    this.weatherService.getWeatherAPIByGeolocation(lat, lon)
+    this.weatherService.getWeatherByGeolocation(lat, lon)
     .subscribe(data => {
       this.weather = data;
-      this.weatherImageURL = this.weatherService.getWeatherImage(this.weather.weather[0].icon);
+      this.weatherImageURL = this.weatherService.getWeatherImageURLByIconCode(this.weather.weather[0].icon);
       this.weatherType = this.weather.weather[0].main;
     });
   }

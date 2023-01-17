@@ -6,13 +6,13 @@
     <p>Humidity: {{ weather?.main?.humidity }}</p>
     <p>City: {{ weather?.name }}</p>
     <p>Type: {{ weatherType }}</p>
-    <form [formGroup] = "todoForm">
+    <form [formGroup] = "newLocationForm">
         <mat-form-field appearance="outline">
             <mat-label>City</mat-label>
             <input formControlName="city" matInput>
         </mat-form-field>
         <div>
-            <button (click)="newPosition()" mat-raised-button [disabled]="todoForm.invalid" color="primary">New Positon</button>
+            <button (click)="newPosition()" mat-raised-button [disabled]="newLocationForm.invalid" color="primary">New Positon</button>
         </div>
     </form>
     <div>

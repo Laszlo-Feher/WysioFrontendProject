@@ -9,24 +9,52 @@ import { GeolocationService } from './geolocation.service';
   providedIn: 'root'
 })
 export class WeatherService {
-
+  private URLList={
+    weatherAPICallByGeolocation: (latCode: number, lonCode: number, baseURLCode: string, apikey: string) => {
+      let lat = latCode;
+      let lon = lonCode;
+      let key = apikey;
+      let lang = 'en';
+      let units = 'metric';
+      let baseURL = baseURLCode;
+      let url = `${baseURL}lat=${lat}&lon=${lon}&appid=${key}&units=${units}&lang=${lang}`;
+      return url;
+    },
+    weatherAPICallByCity: (cityCode: string, baseURLCode: string, apikey: string) => {
+      let city = cityCode;
+      let key = apikey;
+      let lang = 'en';
+      let units = 'metric';
+      let baseURL = baseURLCode;
+      let url = `${baseURL}q=${city}&appid=${key}&units=${units}&lang=${lang}`;
+      return url;
+    },
+    weatherImgAPICall: (iconCode: string, baseURLCode: string) => {
+      let icon = iconCode;
+      let size = '@2x';
+      let baseURL = baseURLCode;
+      let url = `${baseURL}${icon}${size}.png`;
+      return url;
+    }
+  }
+  
   private weatherURLFetched: string;
   private weatherImageURLFetched: string;
 
   constructor(private http:HttpClient, private geolocation: GeolocationService) { }
 
-  getWeatherAPIByCity(city: string): Observable<IWeather> {
-    this.weatherURLFetched = environment.weatherAPICallByCity(city) as string;
+  getWeatherByCity(city: string): Observable<IWeather> {
+    this.weatherURLFetched = this.URLList.weatherAPICallByCity(city, environment.weatherURL, environment.weatherAPIKey) as string;
     return this.http.get<IWeather>(this.weatherURLFetched);
   }
 
-  getWeatherAPIByGeolocation(lat: number, lon: number): Observable<IWeather> {
-    this.weatherURLFetched = environment.weatherAPICallByGeolocation(lat, lon) as string;
+  getWeatherByGeolocation(lat: number, lon: number): Observable<IWeather> {
+    this.weatherURLFetched = this.URLList.weatherAPICallByGeolocation(lat, lon, environment.weatherURL, environment.weatherAPIKey) as string;
     return this.http.get<IWeather>(this.weatherURLFetched);
   }
 
-  getWeatherImage(iconCode: string) {
-    return this.weatherImageURLFetched = environment.weatherImgAPICall(iconCode) as string;
+  getWeatherImageURLByIconCode(iconCode: string) {
+    return this.weatherImageURLFetched = this.URLList.weatherImgAPICall(iconCode, environment.weatherImageURL) as string;
   }
 
   getLocation() :Promise<any> {
