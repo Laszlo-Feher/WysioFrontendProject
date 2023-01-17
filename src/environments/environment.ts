@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  jokeUrl: "https://api.chucknorris.io/jokes/random?category=dev",
-  weatherURL: "https://api.openweathermap.org/data/2.5/weather?",
-  weatherImageURL: "http://openweathermap.org/img/wn/",
+  jokeAPI: "https://api.chucknorris.io/jokes/random?category=dev",
+  weatherAPI: "https://api.openweathermap.org/data/2.5/weather?",
+  weatherImageAPI: "http://openweathermap.org/img/wn/",
   weatherAPIKey: "3e571ad5743072e40a4e19ff4b0a1a2d"
 };
 

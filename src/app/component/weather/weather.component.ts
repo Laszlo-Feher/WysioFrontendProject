@@ -39,8 +39,7 @@ export class WeatherComponent implements OnInit {
   }
 
   private setWeatherByCity(city: string) : void {
-    this.weatherService.getWeatherByCity(city)
-    .subscribe(data => {
+    this.weatherService.getWeatherByCity(city).subscribe(data => {
       this.weather = data;
       this.weatherImageURL = this.weatherService.getWeatherImageURLByIconCode(this.weather.weather[0].icon);
       this.weatherType = this.weather.weather[0].main;
