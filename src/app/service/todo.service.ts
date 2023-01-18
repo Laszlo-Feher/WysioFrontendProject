@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ITask } from '../model/task';
-import { FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms'
-import { IndexedDBService } from 'src/app/service/indexed-db.service';
+import { FormGroup } from '@angular/forms'
 import { DatePipe } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
+import { IndexedDBService } from './indexed-db.service';
+import { Key } from 'ngx-indexed-db';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class TodoService {
   private newTaskObservable = new BehaviorSubject<any>(null);
   currentTask = this.newTaskObservable.asObservable();
 
-  constructor(public datepipe: DatePipe, private indexedDBService: IndexedDBService) { }
+  constructor(public datepipe: DatePipe, private indexedDB: IndexedDBService) { }
 
   addTask(todoForm: FormGroup){
     this.newTask = {
@@ -30,5 +31,19 @@ export class TodoService {
       created_at: this.datepipe.transform((new Date), 'MM/dd/yyyy h:mm:ss')?.toString()
     };
     this.newTaskObservable.next(this.newTask);
+    this.indexedDB.addTask(this.newTask)
+  }
+
+  updateTask(task: ITask){
+    this.indexedDB.updateTask(task);
+  }
+
+  deleteTask(taskKey: Key){
+    this.indexedDB.deleteTask(taskKey);
+  }
+  
+  async getAllTask() {
+    const tasks = await this.indexedDB.getAllTasks().toPromise();
+    return tasks;
   }
 }

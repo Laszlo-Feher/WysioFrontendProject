@@ -1,5 +1,6 @@
 import { CdkDrag, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { Key } from 'ngx-indexed-db';
 import { Subscription } from 'rxjs';
 import { IBoard } from 'src/app/model/board';
 import { ITask } from '../../model/task';
@@ -34,20 +35,41 @@ export class TodoTableComponent implements OnInit{
   };
 
   newTask: ITask;
+  allTask: ITask[];
+  taskToUpdate: ITask;
+  taskToDeleteKey: Key;
   receiveNewTask: Subscription;
 
   constructor(private todoservice: TodoService) {  }
 
   ngOnInit(): void {
+    this.getAllTask();
     this.todoservice.currentTask.subscribe(newTask => newTask != null ? this.board.columns[0].tasks.push(newTask) : null)
   }
 
   deleteTask(columnId: number, i: number){
+    this.taskToDeleteKey = this.board.columns[columnId].tasks[i].id as Key;
+    this.todoservice.deleteTask(this.taskToDeleteKey);
     this.board.columns[columnId].tasks.splice(i,1);
   }
 
   updateTaskState(columnId: number, taskId: number){
-    this.board.columns[columnId].tasks[taskId].state = columnId;
+    this.taskToUpdate = this.board.columns[columnId].tasks[taskId];
+    this.taskToUpdate.state = columnId;
+    this.todoservice.updateTask(this.taskToUpdate);
+  }
+
+  async getAllTask(){
+    this.todoservice.getAllTask().then(tasks => this.initAllTask(tasks as ITask[]));
+  }
+
+  initAllTask(tasks: ITask[]){
+    const columnMapping: { [key: number]: ITask[] } = {
+      0: this.board.columns[0].tasks,
+      1: this.board.columns[1].tasks,
+      2: this.board.columns[2].tasks
+  }
+  tasks.forEach(task => columnMapping[task.state].push(task))
   }
 
   drop(event: CdkDragDrop<ITask[]>) {

@@ -24,7 +24,26 @@ import { TodoDetailComponent } from './component/todo-detail/todo-detail.compone
 import { HomeComponent } from './component/home/home.component';
 import { TodoTableComponent } from './component/todo-table/todo-table.component';
 import { TodoFormComponent } from './component/todo-form/todo-form.component';
+import { DBConfig, NgxIndexedDBModule } from 'ngx-indexed-db';
 
+const dbConfig: DBConfig  = {
+  name: 'ToDo',
+  version: 1,
+  objectStoresMeta: [{
+    store: 'Tasks',
+    storeConfig: { keyPath: 'id', autoIncrement: false },
+    storeSchema: [
+      { name: 'id', keypath: 'id', options: { unique: true } },
+      { name: 'state', keypath: 'state', options: { unique: false } },
+      { name: 'priority', keypath: 'priority', options: { unique: false } },
+      { name: 'name', keypath: 'name', options: { unique: false } },
+      { name: 'description', keypath: 'description', options: { unique: false } },
+      { name: 'deadline', keypath: 'deadline', options: { unique: false } },
+      { name: 'created_at', keypath: 'created_at', options: { unique: false } },
+      { name: 'updated_at', keypath: 'updated_at', options: { unique: false } }
+    ]
+  }]
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +58,7 @@ import { TodoFormComponent } from './component/todo-form/todo-form.component';
     BrowserModule,
     RouterModule,
     AppRoutingModule,
+    NgxIndexedDBModule.forRoot(dbConfig),
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,

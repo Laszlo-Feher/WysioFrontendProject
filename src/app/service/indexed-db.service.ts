@@ -1,52 +1,40 @@
 import { Injectable } from '@angular/core';
-import { openDB } from 'idb';
+import { Key, NgxIndexedDBService } from 'ngx-indexed-db';
+import { Observable } from 'rxjs';
 import { ITask } from '../model/task';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class IndexedDBService {
-  private db: any;
-  tasks: ITask[];
 
-  constructor() {
-    this.start();
-  }
-  async start(){
-    await this.connect();
-    this.tasks = await this.getAll();
-  }
+  constructor(private dbService: NgxIndexedDBService) { }
 
-  connect(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      openDB('myDatabase', 1, {
-        upgrade(db) {
-          db.createObjectStore('tasks', { keyPath: 'id' });
-        }
-      }).then(db => {
-        this.db = db;
-        resolve();
-      }).catch(error => {
-        console.log(`Error connecting to IndexedDB: ${error}`);
-        reject(error);
-      });
+  addTask(task: ITask){
+    this.dbService
+    .add('Tasks', task)
+    .subscribe((key) => {
+      console.log('key: ', key);
     });
   }
 
-  async add(data: ITask) {
-    return this.db.add('tasks', data);
-  }
-
-  getAll(): Promise<ITask[]> {
-    return new Promise((resolve, reject) => {
-      const taskStore = this.db.transaction('tasks').objectStore('tasks');
-      taskStore.getAll().then((data: ITask[] | PromiseLike<ITask[]>) => {
-        resolve(data);
-      }).catch((error: any) => {
-        console.log(`Error getting all tasks from IndexedDB: ${error}`);
-        reject(error);
-      });
+  updateTask(task: ITask){
+    this.dbService
+    .update('Tasks', task)
+    .subscribe((storeData) => {
+      console.log('storeData: ', storeData);
     });
   }
 
+  getAllTasks(): Observable<ITask[]>{
+    return this.dbService.getAll('Tasks');
+  }
+
+  deleteTask(key: Key){
+    this.dbService.delete('Tasks', key).subscribe((tasks) => {
+      console.log('all tasks:', tasks);
+    });
+  }
+  
 }
