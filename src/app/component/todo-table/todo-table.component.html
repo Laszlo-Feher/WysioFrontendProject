@@ -7,7 +7,10 @@
                     <div class="example-box" *ngFor="let item of column.tasks; let i = index" cdkDrag>{{item.name}}
                         <div class="box">
                             <button mat-icon-button color="warn" (click)="deleteTask(column.id, i)"><mat-icon>delete</mat-icon></button>
-                            <button mat-icon-button color="primary"><mat-icon>edit</mat-icon></button>
+                            <a routerLink="/todo/item.id" routerLinkActive="active" ariaCurrentWhenActive="page">
+                                <button mat-icon-button color="primary"><mat-icon>edit</mat-icon></button>
+                            </a>
+                            <router-outlet></router-outlet>
                         </div>
                     </div>
                 </div>

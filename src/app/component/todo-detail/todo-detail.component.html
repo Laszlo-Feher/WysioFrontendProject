@@ -1,1 +1,32 @@
-<p>todo-detail works!</p>
+<div style="background-color: black;">
+<mat-card>
+    <mat-card-content>
+        <form [formGroup] = "todoForm">
+            <mat-form-field appearance="outline">
+                <mat-label>Task Name</mat-label>
+                <input formControlName="name" matInput>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Priority</mat-label>
+                <mat-select formControlName="priority" matInput>
+                    <mat-option *ngFor="let priority of priorities" [value]="priority.value">
+                    {{priority.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Deadline</mat-label>
+                <input formControlName="deadline" matInput [matDatepicker]="picker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Description</mat-label>
+                <textarea formControlName="description" matInput></textarea>
+            </mat-form-field>
+            <button *ngIf="!isEditEnabled" (click)="addTaskToService()" mat-raised-button [disabled]="todoForm.invalid" color="primary">Add</button>
+        </form>
+    </mat-card-content>
+</mat-card>
+</div>
