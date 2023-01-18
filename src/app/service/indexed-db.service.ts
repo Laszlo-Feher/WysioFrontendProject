@@ -41,7 +41,6 @@ export class IndexedDBService {
     return new Promise((resolve, reject) => {
       const taskStore = this.db.transaction('tasks').objectStore('tasks');
       taskStore.getAll().then((data: ITask[] | PromiseLike<ITask[]>) => {
-        console.log(data);
         resolve(data);
       }).catch((error: any) => {
         console.log(`Error getting all tasks from IndexedDB: ${error}`);
