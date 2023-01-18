@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,15 +16,28 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
+import { DatePipe } from '@angular/common';
+import { TodoDetailComponent } from './component/todo-detail/todo-detail.component';
+import { HomeComponent } from './component/home/home.component';
+import { TodoTableComponent } from './component/todo-table/todo-table.component';
+import { TodoFormComponent } from './component/todo-form/todo-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     JokeComponent,
-    TodoBoardComponent
+    TodoBoardComponent,
+    TodoDetailComponent,
+    HomeComponent,
+    TodoTableComponent,
+    TodoFormComponent
   ],
   imports: [
     BrowserModule,
+    RouterModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -34,9 +48,12 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    DragDropModule
+    DragDropModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,50 +1,50 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms'
+import { FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms'
+import { Subscription } from 'rxjs';
+import { IndexedDBService } from 'src/app/service/indexed-db.service';
 import { ITask } from '../../model/task';
+import { TodoService } from '../../service/todo.service';
+
+
+interface Priority {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-todo-board',
   templateUrl: './todo-board.component.html',
   styleUrls: ['./todo-board.component.sass']
 })
-export class TodoBoardComponent implements OnInit {
 
+export class TodoBoardComponent implements OnInit{
+  
+  priorities: Priority[] = [
+    {value: '0', viewValue: 'High'},
+    {value: '1', viewValue: 'Medium'},
+    {value: '2', viewValue: 'Low'},
+  ];
+  newTask: ITask;
+  receiveNewTask: Subscription;
+
+
+  //db: IndexedDB;
   todoForm !: FormGroup;
   tasks : ITask [] = [];
+
+
   inprogress : ITask [] = [];
   done : ITask [] = [];
   updateIndex!: any;
-  isEditEnabled: boolean = false;
 
-  constructor(private fb : FormBuilder) { }
+  constructor(private todoservice: TodoService,private fb : FormBuilder, public datepipe: DatePipe, private indexedDBService: IndexedDBService) {
+    
+   }
 
   ngOnInit(): void {
-    this.todoForm = this.fb.group({
-      item : ['', Validators.required]
-    })
-  }
-
-  addTask(){
-    this.tasks.push({
-      description:this.todoForm.value.item,
-      done: false
-    })
-    this.todoForm.reset();
-  }
-
-  onEdit(item: ITask, i: number){
-    this.todoForm.controls['item'].setValue(item.description);
-    this.updateIndex = i;
-    this.isEditEnabled = true;
-  }
-
-  updateTask(){
-    this.tasks[this.updateIndex].description = this.todoForm.value.item;
-    this.tasks[this.updateIndex].done = false;
-    this.todoForm.reset();
-    this.updateIndex = undefined;
-    this.isEditEnabled = false;
+    this.todoservice.currentTask.subscribe(newTask => newTask != null ? this.tasks.push(newTask) : null)
   }
 
   deleteTask(i: number){
@@ -69,6 +69,7 @@ export class TodoBoardComponent implements OnInit {
         event.previousIndex,
         event.currentIndex,
       );
+      console.log(event);
     }
   }
 
