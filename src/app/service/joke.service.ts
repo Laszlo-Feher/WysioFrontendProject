@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class JokeService {
 
-  private jokeURLFetched: string = environment.jokeUrl;
+  private jokeURLFetched: string = environment.jokeAPI;
 
   constructor(private http:HttpClient) { }
 
