@@ -18,6 +18,14 @@ export class WeatherService {
     this.weather = apiWeatherObject;
     return this.weather;
   }
+  
+  callAPI(api:string, cityParams: HttpParams) {
+    return this.http.get(api, { params: cityParams }).pipe(
+      map( apiWeatherObject => {
+        return this.convertToWeather(apiWeatherObject as IWeather);
+      })
+    );
+  }
 
   getWeatherByCity( city: string ): Observable<IWeather> {
     let cityParams = new HttpParams().appendAll({
@@ -26,11 +34,7 @@ export class WeatherService {
     'units': 'metric',
     'lang': 'en',
     });
-    return this.http.get(environment.weatherAPI, { params: cityParams }).pipe(
-      map( apiWeatherObject => {
-        return this.convertToWeather(apiWeatherObject as IWeather);
-      })
-    );
+    return this.callAPI(environment.weatherAPI, cityParams );
   }
 
   getWeatherByGeolocation(lat: number, lon: number): Observable<IWeather> {
@@ -41,11 +45,7 @@ export class WeatherService {
     'units': 'metric',
     'lang': 'en',
     });
-    return this.http.get(environment.weatherAPI, { params: cityParams }).pipe(
-      map( apiWeatherObject => {
-        return this.convertToWeather(apiWeatherObject as IWeather);
-      })
-    );
+    return this.callAPI(environment.weatherAPI, cityParams);
   }
 
   getWeatherImageURLByIconCode(iconCode: string) {
