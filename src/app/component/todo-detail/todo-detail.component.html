@@ -1,38 +1,38 @@
-<div style="background-color: black;">
-<mat-card>
-    <mat-card-content>
-        <form [formGroup] = "todoForm">
-            <mat-form-field appearance="outline">
-                <mat-label>Task Name</mat-label>
-                <input formControlName="name" matInput>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Priority</mat-label>
-                <mat-select formControlName="priority" matInput>
-                    <mat-option *ngFor="let priority of priorities" [value]="priority.value">
-                    {{priority.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Deadline</mat-label>
-                <input formControlName="deadline" matInput [matDatepicker]="picker">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Description</mat-label>
-                <textarea formControlName="description" matInput></textarea>
-            </mat-form-field>
-            <div>
-                <span>Created: {{ updatableTask?.created_at }}</span>
-            </div>
-            <div>
-                <span>Updated: {{ updatableTask?.updated_at }}</span>
-            </div>
-            <button (click)="updateTaskToService()" mat-raised-button [disabled]="todoForm.invalid" routerLink="/" color="primary">Update</button>
-        </form>
-    </mat-card-content>
-</mat-card>
+<div class="updateForm">
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup] = "todoForm">
+                <mat-form-field appearance="outline">
+                    <mat-label>Task Name</mat-label>
+                    <input formControlName="name" matInput>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Priority</mat-label>
+                    <mat-select formControlName="priority" matInput>
+                        <mat-option *ngFor="let priority of priorities" [value]="priority.value">
+                        {{priority.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Deadline</mat-label>
+                    <input formControlName="deadline" matInput [matDatepicker]="picker">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Description</mat-label>
+                    <textarea formControlName="description" matInput></textarea>
+                </mat-form-field>
+                <div>
+                    <span>Created: {{ updatableTask?.created_at }}</span>
+                </div>
+                <div>
+                    <span>Updated: {{ updatableTask?.updated_at }}</span>
+                </div>
+                <button (click)="updateTaskToService()" mat-raised-button [disabled]="todoForm.invalid" routerLink="/" color="primary">Update</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
 </div>
