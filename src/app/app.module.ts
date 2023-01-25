@@ -25,6 +25,8 @@ import { HomeComponent } from './component/home/home.component';
 import { TodoTableComponent } from './component/todo-table/todo-table.component';
 import { TodoFormComponent } from './component/todo-form/todo-form.component';
 import { DBConfig, NgxIndexedDBModule } from 'ngx-indexed-db';
+import { WeatherComponent } from './component/weather/weather.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 const dbConfig: DBConfig  = {
   name: 'ToDo',
@@ -53,6 +55,7 @@ const dbConfig: DBConfig  = {
     HomeComponent,
     TodoTableComponent,
     TodoFormComponent
+    WeatherComponent
   ],
   imports: [
     BrowserModule,
@@ -72,6 +75,7 @@ const dbConfig: DBConfig  = {
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule
+    MatSnackBarModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
