@@ -34,6 +34,24 @@ export class TodoService {
     this.indexedDB.addTask(this.newTask)
   }
 
+  updateTaskFromForm(todoForm: FormGroup){
+    this.formToTaskConverter(todoForm);
+    this.updateTask(this.newTask);
+  }
+
+  formToTaskConverter(todoForm: FormGroup){
+    this.newTask = {
+      id: todoForm.value.id,
+      state: todoForm.value.state,
+      priority: todoForm.value.priority,
+      name: todoForm.value.name,
+      description: todoForm.value.description,
+      deadline: todoForm.value.deadline,
+      created_at: todoForm.value.created_at,
+      updated_at: this.datepipe.transform((new Date), 'MM/dd/yyyy h:mm:ss')?.toString()
+    };
+  }
+
   updateTask(task: ITask){
     this.indexedDB.updateTask(task);
   }
@@ -45,5 +63,10 @@ export class TodoService {
   async getAllTask() {
     const tasks = await this.indexedDB.getAllTasks().toPromise();
     return tasks;
+  }
+
+  async getByKey(key: IDBValidKey) {
+    const newTask = await this.indexedDB.getByKey(key).toPromise();
+    return newTask as ITask;
   }
 }

@@ -31,6 +31,10 @@ export class IndexedDBService {
     return this.dbService.getAll('Tasks');
   }
 
+  getByKey(key: IDBValidKey): Observable<ITask>{
+    return this.dbService.getByKey('Tasks', key);
+  }
+
   deleteTask(key: Key){
     this.dbService.delete('Tasks', key).subscribe((tasks) => {
       console.log('all tasks:', tasks);

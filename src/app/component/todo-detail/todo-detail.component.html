@@ -25,7 +25,13 @@
                 <mat-label>Description</mat-label>
                 <textarea formControlName="description" matInput></textarea>
             </mat-form-field>
-            <button *ngIf="!isEditEnabled" (click)="addTaskToService()" mat-raised-button [disabled]="todoForm.invalid" color="primary">Add</button>
+            <div>
+                <span>Created: {{ updatableTask?.created_at }}</span>
+            </div>
+            <div>
+                <span>Updated: {{ updatableTask?.updated_at }}</span>
+            </div>
+            <button (click)="updateTaskToService()" mat-raised-button [disabled]="todoForm.invalid" routerLink="/" color="primary">Update</button>
         </form>
     </mat-card-content>
 </mat-card>
