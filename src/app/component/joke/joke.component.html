@@ -1,5 +1,7 @@
-<div>
-    <h3>Daily Chuck Norris Joke</h3>
-    <img class="chuck-img" src="{{ joke?.icon_url }}" alt="I think you don't get it...">
-    <p>{{ joke?.value }}</p>
+<div class="joke">
+    <h3 class="title">Daily Chuck Norris Joke</h3>
+    <div class="image-container">
+        <img class="image" src="https://api.chucknorris.io/img/chucknorris_logo_coloured_small@2x.png" alt="I think you don't get it...">
+    </div>
+    <p class="text">{{ joke?.value }}</p>
 </div>

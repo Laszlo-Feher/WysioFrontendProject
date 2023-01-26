@@ -1,0 +1,22 @@
+$tablet-width: 768px
+
+@media (max-width: $tablet-width) 
+	.header-container
+		display: grid
+		grid-template-columns: repeat(1, minmax(0, 1fr))
+		grid-auto-flow: row
+
+@media (min-width: $tablet-width) 
+	.header-container
+		display: grid
+		grid-template-columns: repeat(2, minmax(0, 1fr))
+		grid-auto-flow: row
+
+.component
+	border-radius: 0.5rem
+	background-color: white
+	margin: 18px
+	padding: 36px
+	border-radius: 23px
+	background: #ebf1ff
+	box-shadow:  5px 5px 10px #bec3cf, -5px -5px 10px #ffffff

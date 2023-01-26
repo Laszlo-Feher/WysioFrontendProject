@@ -1,0 +1,41 @@
+$tablet-width: 768px
+
+.weather 
+    & .image-container
+        width: 110px
+        border-radius: 50%
+        display: flex
+        justify-content: center
+        align-items: center
+        background: #ebf1ff
+        box-shadow:  5px 5px 10px #bec3cf, -5px -5px 10px #ffffff
+        margin-bottom: 18px 
+        & .image
+            background-color: white
+            border-radius: 50%
+            margin: 4px
+    & .header
+        width: 100%
+        margin-bottom: 24px
+        & .title
+            font-size: 28px
+    & .type
+        font-size: 20px
+    & .city
+        font-size: 20px
+    & .form
+        margin-bottom: 16px
+        margin-top: 16px
+        & mat-form-field
+            width: 100%
+
+    
+    & .body
+        display: grid
+        grid-auto-flow: row
+
+        @media (max-width: $tablet-width) 
+            grid-template-columns: repeat(1, minmax(0, 1fr))
+
+        @media (min-width: $tablet-width)
+            grid-template-columns: repeat(2, minmax(0, 1fr))
