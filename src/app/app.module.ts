@@ -54,7 +54,7 @@ const dbConfig: DBConfig  = {
     TodoDetailComponent,
     HomeComponent,
     TodoTableComponent,
-    TodoFormComponent
+    TodoFormComponent,
     WeatherComponent
   ],
   imports: [
@@ -74,8 +74,8 @@ const dbConfig: DBConfig  = {
     DragDropModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule
-    MatSnackBarModule,
+    MatSelectModule,
+    MatSnackBarModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
