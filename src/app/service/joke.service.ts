@@ -10,10 +10,15 @@ import { environment } from 'src/environments/environment';
 export class JokeService {
 
   private jokeURLFetched: string = environment.jokeAPI;
+  private jokeImageURL: string = environment.jokeImageAPI;
 
   constructor(private http:HttpClient) { }
 
   getJoke(): Observable<IJoke> {
     return this.http.get<IJoke>(this.jokeURLFetched);
+  }
+
+  getJokeImageURL() {
+    return this.jokeImageURL;
   }
 }

@@ -47,10 +47,10 @@ export class TodoDetailComponent implements OnInit{
 
   validateFormAfterFetch(){
     this.todoForm = this.formBuilder.group({
-      name : [this.updatableTask.name, Validators.required],
+      name : [this.updatableTask.name, [Validators.required, Validators.maxLength(20)]],
       priority : [this.updatableTask.priority, Validators.required],
       deadline : [this.updatableTask.deadline, Validators.required],
-      description : [this.updatableTask.description, Validators.required],
+      description : [this.updatableTask.description, [Validators.required, Validators.maxLength(80)]],
       id : [this.updatableTask.id],
       state : [this.updatableTask.state],
       created_at : [this.updatableTask.created_at]

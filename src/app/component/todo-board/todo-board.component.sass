@@ -1,6 +1,29 @@
+$tablet-width: 768px
+
 .todo-container
+    min-height: 700px
+    box-sizing: border-box
+    width: 100%
+    padding: 18px
+    
+.inside-container
+    gap: 24px
+    width: 100%
+    overflow-x: hidden
     border-radius: 23px
     background: #ebf1ff
     box-shadow:  5px 5px 10px #bec3cf, -5px -5px 10px #ffffff
     padding: 18px
-    margin: 18px
+    min-height: 700px
+    box-sizing: border-box
+    display: flex
+    overflow-x: auto
+
+    @media (max-width: $tablet-width) 
+        direction: column
+
+    @media (min-width: $tablet-width)
+        direction: row
+
+app-todo-table
+    max-width: 100%

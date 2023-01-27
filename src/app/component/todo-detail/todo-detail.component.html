@@ -25,10 +25,10 @@
                     <mat-label>Description</mat-label>
                     <textarea formControlName="description" matInput></textarea>
                 </mat-form-field>
-                <div>
+                <div class="date">
                     <span>Created: {{ updatableTask?.created_at }}</span>
                 </div>
-                <div>
+                <div class="date" *ngIf="updatableTask?.updated_at">
                     <span>Updated: {{ updatableTask?.updated_at }}</span>
                 </div>
                 <button (click)="updateTaskToService()" mat-raised-button [disabled]="todoForm.invalid" routerLink="/" color="primary">Update</button>

@@ -31,10 +31,10 @@ export class TodoFormComponent implements OnInit{
 
   ngOnInit(): void {
     this.todoForm = this.formBuilder.group({
-      name : ['', Validators.required],
+      name : ['', [Validators.required, Validators.maxLength(20)]],
       priority : ['', Validators.required],
       deadline : ['', Validators.required],
-      description : ['', Validators.required]
+      description : ['', [Validators.required, Validators.maxLength(80)]]
     });
   }
 

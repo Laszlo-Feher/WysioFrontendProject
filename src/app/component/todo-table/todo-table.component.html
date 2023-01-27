@@ -1,15 +1,18 @@
-<div cdkDropListGroup>
-    <div class="row">
-        <div class="col-md-4" *ngFor="let column of board.columns">
-            <div class="example-container">
-                <h2 class="head-title">{{ column.name }}<span *ngIf="column.tasks.length > 0"> - {{ column.tasks.length }}</span></h2>
-                <div cdkDropList [cdkDropListData]="column.tasks" class="example-list" (cdkDropListDropped)="drop($event)">
-                    <div class="example-box" *ngFor="let item of column.tasks; let i = index" cdkDrag>{{item.name}}
-                        <div class="box">
-                            <button mat-icon-button color="warn" (click)="deleteTask(column.id, i)"><mat-icon>delete</mat-icon></button>
+<div  class="group-container">
+    <div cdkDropListGroup class="scrollable-container">
+        <div *ngFor="let column of board.columns"  class="table">
+            <div class="title">
+                <h2>{{ column.name }}<span *ngIf="column.tasks.length > 0"> - {{ column.tasks.length }}</span></h2>
+            </div>
+            <div class="list-container">
+                <div cdkDropList [cdkDropListData]="column.tasks" class="list" (cdkDropListDropped)="drop($event)">
+                    <div class="card" *ngFor="let item of column.tasks; let i = index" cdkDrag>
+                        <div class="card-name">{{item.name}}</div>
+                        <div class="card-buttons">
                             <a [routerLink]="['todo', item.id]" routerLinkActive="active" ariaCurrentWhenActive="page">
                                 <button mat-icon-button color="primary"><mat-icon>edit</mat-icon></button>
                             </a>
+                            <button mat-icon-button color="warn" (click)="deleteTask(column.id, i)"><mat-icon>delete</mat-icon></button>
                             <router-outlet></router-outlet>
                         </div>
                     </div>
