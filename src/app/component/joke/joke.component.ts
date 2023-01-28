@@ -21,6 +21,7 @@ export class JokeComponent implements OnInit {
     this.jokeService.getJoke()
     .subscribe(data => {
       this.joke = data;
+      this.joke.icon_url = this.jokeService.getJokeImageURL();
     });
   }
 

@@ -1,58 +1,78 @@
-:host 
-	.mat-form-field 
-		width: 100% 
-.example-container 
-	width: 400px 
-	max-width: 100% 
-	margin: 0 25px 25px 0 
+.group-container
+	max-width: 1400px
+	height: 90%
+	box-sizing: border-box
+	display: flex
+
+.scrollable-container
+	display: flex
+	gap: 18px
+
+.table 
+	min-width: 300px 
+	height: 650px
 	display: inline-block 
 	vertical-align: top 
-.example-list 
-	border: solid 1px #ccc 
-	min-height: 60px 
-	background: white 
-	border-radius: 4px 
-	overflow: hidden 
-	display: block 
-	&.cdk-drop-list-dragging 
-		.example-box 
-			&:not(.cdk-drag-placeholder) 
-				transition: transform 250ms cubic-bezier(0, 0, 0.2, 1) 
-.example-box 
-	padding: 20px 10px 
-	border-bottom: solid 1px #ccc 
-	color: rgba(0, 0, 0, 0.87) 
+	border-radius: 23px
+	background: #ebf1ff
+	box-shadow:  5px 5px 10px #bec3cf, -5px -5px 10px #ffffff
+	padding: 0px
+	overflow: hidden
+
+.title
+	padding: 18px 18px 0px 18px
+	& > h2
+		text-align: center
+ 
+.list-container
+	height: 600px
+	display: flex
+	justify-content: center
+	overflow: scroll
+	&::-webkit-scrollbar
+		display: none	
+	
+.list
+	margin: 20px
+	width: 100%
+	height: auto
+	display: block
+
+.card
+	width: 100%
+	padding: 10px 18px 
+	margin-bottom: 18px
 	display: flex 
 	flex-direction: row 
 	align-items: center 
 	justify-content: space-between 
 	box-sizing: border-box 
-	cursor: move 
-	background: white 
-	font-size: 14px 
-	&:last-child 
-		border: none 
+	cursor: pointer
+	border: none
+	border-radius: 17px
+	background: #ebf1ff
+	box-shadow:  5px 5px 10px #bec3cf, -5px -5px 10px #ffffff
+
+.card-name
+	max-width: 60%
+	overflow-wrap: break-word
+	overflow: hidden
+
+.card-buttons
+	width: 40%
+	
 .cdk-drag-preview 
 	box-sizing: border-box 
-	border-radius: 4px 
-	box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12) 
-	
+	border-radius: 17px
+	background: #ebf1ff
+	box-shadow:  5px 5px 10px #bec3cf, -5px -5px 10px #ffffff
 .cdk-drag-placeholder 
-	opacity: 0 
+	opacity: 40%
 .cdk-drag-animating 
 	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1) 
 .box 
 	display: grid 
 	grid-auto-flow: column 
 	grid-column-gap: 10px 
-.head-title 
-	margin: 0 
-	padding: 10px 
-	background-color: rgb(228, 222, 222) 
-	border-radius: 4px 
-	color: #777272 
-	font-size: 1.5rem 
-	font-weight: 600 
-	span
-		font-weight: normal
+
 
